@@ -1,0 +1,8 @@
+download R R 3.3.0+ and Rstudio 2023
+https://posit.co/download/rstudio-desktop/
+
+Tutorial how to install 
+https://www.youtube.com/watch?v=kek6lBmmCmU
+
+book
+deep learning with R

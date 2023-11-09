@@ -1,0 +1,13 @@
+Data visualization in R
+
+Tutorial:
+https://rkabacoff.github.io/datavis/preface.html#prequisites
+
+Basic Examples:
+https://www.r-bloggers.com/2016/12/7-visualizations-you-should-learn-in-r/
+
+Basic Examples:
+https://www.kdnuggets.com/2018/06/7-simple-data-visualizations-should-know-r.html
+
+All Examples:
+https://www.r-graph-gallery.com/ggplot2-package.html

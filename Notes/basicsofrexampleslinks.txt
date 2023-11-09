@@ -1,0 +1,14 @@
+#First run of R studio
+
+1. Basics of R
+https://www.datamentor.io/r-programming/examples/
+
+2. Loop in R
+https://statisticsglobe.com/for-loop-in-r
+
+3. array in R
+https://www.tutorialspoint.com/r/r_arrays.htm
+
+4. Files in R (next lab)
+https://www.datacamp.com/community/tutorials/r-data-import-tutorial?utm_source=adwords_ppc&utm_campaignid=12492439802&utm_adgroupid=122563403921&utm_device=c&utm_keyword=read%20data%20r&utm_matchtype=b&utm_network=g&utm_adpostion=&utm_creative=504100780791&utm_targetid=kwd-382747396515&utm_loc_interest_ms=&utm_loc_physical_ms=1029557&gclid=CjwKCAjwq9mLBhB2EiwAuYdMtQpOdWYbzBavipwK9VP7t9p9x8AXLrCt6rLxUeY16xqH8nIIB0F9yhoCYsgQAvD_BwE#stata
+

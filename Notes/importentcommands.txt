@@ -1,0 +1,11 @@
+#clear the console 
+ctrl+L
+
+#clear the environment
+rm(list = ls())
+
+#clear a variable from the environment 
+rm(variableName)
+
+#to find a project path in R. You should include your dataset there
+getwd()

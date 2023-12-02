@@ -1,6 +1,6 @@
 # Directory 
 getwd() # Show current directory
-setwd() # change directory, "/"
+setwd("C:/Users/syahi/Documents/Degree UTHM/DOC/Data Mining/DataPulse-Collective") # change directory, "/"
 
 # Clear Environment
 rm(list = ls()) # All 

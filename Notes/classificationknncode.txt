@@ -1,0 +1,63 @@
+
+rm(list = ls())
+#preprocessing
+install.packages('caTools')
+library(caTools)
+Dataset = read.csv('dataset.csv')
+View(Dataset)
+Dataset$Age = ifelse(is.na(Dataset$Age),
+ave(Dataset$Age, FUN = function (x)mean(x, na.rm = TRUE)),
+            Dataset$Age)
+Dataset$Salary = ifelse(is.na(Dataset$Salary),
+            ave(Dataset$Salary, FUN = function (x)mean(x, na.rm = TRUE)),
+            Dataset$Salary)
+Dataset$Country = factor(Dataset$Country, 
+                         levels = c('France','Spain','Germany'), 
+                         labels = c(1.0, 2.0 , 3.0 ))
+Dataset$Purchased = factor(Dataset$Purchased,
+                           levels = c('No', 'Yes'),
+                           labels = c(0, 1))
+set.seed(123)
+split = sample.split(Dataset$Purchased, SplitRatio = 0.8)# returns true if observation goes to the Training set and false if observation goes to the test set.
+training_set = subset(Dataset, split == TRUE)
+test_set = subset(Dataset, split == FALSE)
+training_set
+test_set
+training_set[, 2:3] = scale(training_set[, 2:3])
+View(training_set)
+test_set[, 2:3] = scale(test_set[, 2:3])
+View(test_set)
+#Classification
+install.packages('class')
+library(class)
+training_set <- Dataset[1:6,]#60% training and 
+testing_set <- Dataset[7:10,]#40% testing
+training_labels <- Dataset[1:6, 4]
+testing_labels <- Dataset[7:10, 4]
+View(training_set)
+View(testing_set)
+training_labels
+testing_labels
+#Run the knn classifier
+testing_result <- knn(train = training_set, 
+                      test = testing_set,
+                      cl = training_labels, k=1)
+testing_result
+install.packages('gmodels')
+library(gmodels)
+CrossTable(x = testing_labels, 
+           y = testing_result, 
+           prop.chisq = FALSE)
+install.packages('caret')
+library(caret)
+output <- confusionMatrix(data = testing_result,
+                          reference = testing_labels)
+output
+
+
+#preprocessing link
+#https://www.analyticsvidhya.com/blog/2015/08/learning-concept-knn-algorithms-programming/
+#online confusion matrix link
+#https://onlineconfusionmatrix.com/
+
+#Homework: Use any ML of your choice, each one of you shows me the run on the given Dataset and explains to me the code and the results.

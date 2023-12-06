@@ -18,6 +18,6 @@ library(dplyr)
 
 #LoadFile
 data <- read_csv('Heart_Disease_Prediction.csv',show_col_types = FALSE)
-head(data, 5)
-glimpse(data)
 view(data)
+
+# Data Understanding 

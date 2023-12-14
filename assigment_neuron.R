@@ -19,19 +19,31 @@ library(caTools)
 library(tidyverse) # will dw list all package
 library(dplyr) 
 library(caret)
+library(tidyverse)
+library(neuralnet)
 
 
 
 ## Data Understanding ## 
 # Data Collecting # 
 data <- read_csv('Diabetes.csv',show_col_types = FALSE)
+tail(data)
+nrow(data)
+
+# split reduce data
+split_data = sample.split(data$gender, SplitRatio = 0.5)
+data = subset(data, split == TRUE) # 50%
+
 
 which(is.na(data),arr.ind=TRUE) # check missing value by row colomn
 
+first_model <- model
+
 # Explore Data
-view(data)
+view(model)
 nrow(data)
 summarise(data)
+glimpse(data)
 summary(data)
 
 ## Data Preparing ## 
@@ -76,7 +88,7 @@ train_set = subset(data, split == TRUE) # 80%
 test_set = subset(data, split == FALSE) # 20%
 
 
-nrow(training_set)
+nrow(train_set)
 nrow(test_set)
 summary(mixmax_Data)
 
@@ -89,37 +101,41 @@ mixmax <- function(x){
   (x - min(x)) / (max(x) - min(x)) * ((1.0-0)+0)
 }
 
-#mixmax_Data <- lapply(data, mixmax)
-#standardization_Data <- scale(data)
-
-
 normalize <- c('mixmax', 'standard')
 
 for (x in normalize){
-  paste0("train_set_",x) <- ifelse(x=='mixmax',
-                        lapply(train_set, mixmax),
-                        scale(train_set))
-  paste0("test_set_",x) <- ifelse(x=='mixmax',
-                       lapply(train_set, mixmax),
-                       scale(train_set))
+  if (x == "mixmax"){
+    train_set_mixmax <- lapply(train_set, mixmax)
+    test_set_mixmax <- lapply(test_set, mixmax)
+  } else {
+    train_set_standard <- scale(train_set)
+    test_set_standard <- scale(test_set)
+  }
 }
-
-# for (x in normalize){
-#   train_set_x[[x]] <- if (x == 'mixmax') {
-#     lapply(train_set, mixmax)
-#   } else {
-#     scale(test_set)
-#   }
-#   
-#   test_set_x[[x]] <- if (x == 'mixmax') {
-#     lapply(test_set, mixmax)
-#   } else {
-#     scale(test_set)
-#   }
-# }
 
 
 # Modeling
+
+## Neuron Network 
+view(train_set_standard)
+
+set.seed(42)
+
+
+model = neuralnet(
+  diabetes~gender+age+heart_disease+smoking_history,
+  data=test_set_mixmax,
+  hidden=c(3,4),
+  linear.output = FALSE,
+  stepmax = 1000000
+)
+
+# Plot the ANN architecture
+plot(model,rep = "best")
+
+pred <- predict(model, test_data)
+
+
 
 ## K-Nearest Neighbors 
 
@@ -138,3 +154,15 @@ knn <- function(x){
 
 options(max.print=200000)
 view(numerical_data)
+
+
+
+new_data <- data.frame(
+  gender = factor("Male"),
+  age = 40,
+  heart_disease = factor("Yes"),
+  smoking_history = factor("Never")
+)
+
+# Predicting diabetes using the trained model
+predictions <- compute(model, new_data)
